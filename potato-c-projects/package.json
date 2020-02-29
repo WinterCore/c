@@ -1,0 +1,16 @@
+{
+  "name": "learnc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "./compile.sh",
+    "build:watch": "nodemon --exec \"./compile.sh\" -e c"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
