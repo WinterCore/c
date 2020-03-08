@@ -23,16 +23,17 @@ void read_line(char *str) {
 }
 
 struct object *get_root(struct object *arr[], int o) {
-    int t = arr[o]->id;
-    while (t != arr[t]->id)
-        t = arr[t]->id;
-    return arr[t];
+    while (o != arr[o]->id) {
+        arr[o]->id = arr[arr[o]->id]->id;
+        o = arr[o]->id;
+    }
+    return arr[o];
 }
 
 void union_objects(struct object *arr[], int size, int a, int b) {
     struct object *t = get_root(arr, a);
     struct object *u = get_root(arr, b);
-    if (t->size > u->size) {
+    if (t->size >= u->size) {
         u->id = t->id;
         t->size += u->size;
     } else  {
@@ -73,15 +74,17 @@ int main(int argc, char **argv) {
     //     }
     //     union_objects(arr, n, a, b);
     // }
-    union_objects(arr, n, 3, 4);
-    union_objects(arr, n, 8, 4);
+    union_objects(arr, n, 4, 3);
+    union_objects(arr, n, 3, 8);
+    union_objects(arr, n, 6, 5);
     union_objects(arr, n, 9, 4);
-    union_objects(arr, n, 4, 6);
-    union_objects(arr, n, 0, 6);
-    union_objects(arr, n, 2, 6);
-    union_objects(arr, n, 5, 6);
-    union_objects(arr, n, 1, 2);
+    union_objects(arr, n, 2, 1);
+    union_objects(arr, n, 5, 0);
     union_objects(arr, n, 7, 2);
+    union_objects(arr, n, 6, 1);
+    union_objects(arr, n, 7, 3);
+    union_objects(arr, n, 8, 0);
+    union_objects(arr, n, 3, 5);
 
     // while (1) {
     //     int a, b;

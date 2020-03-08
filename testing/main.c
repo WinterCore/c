@@ -1,26 +1,43 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
-struct t {
-    int i;
+struct node {
+    int value;
+    struct node *next;
 };
 
-void nothing(void) {
 
-    printf("NOthing");
+void enqueue(struct node **tail, int value) {
+    struct node *newNode = malloc(sizeof(struct node));
+    newNode->value = value;
+    newNode->next  = NULL;
+    if (*tail == NULL)
+        *tail = newNode;
+    else
+        (*tail)->next = newNode;
 }
 
-void (*foo(struct t *s, long i))(void) {
-    return nothing;
+int dequeue(struct node **head) {
+    if (*head == NULL) {
+        printf("Queue is empty");
+        exit(EXIT_FAILURE);
+    }
+    struct node *old = *head;
+    int value = old->value;
+    *head = old->next;
+    free(old);
+    return value;
 }
 
 int main(void) {
-    // a : char *(*p)(char *);
-    // b : void (*(*f)(struct t *, long))(void)
+    struct node *h = NULL;
+    struct node *t = NULL;
+    push(&h, 1);
 
-    void (*(*f)(struct t *, long))(void) = foo;
-    f(&(struct t) {1}, 10)();
+    printf("%d\n", pop(&p));
+    printf("%d", pop(&p));
 
     return 0;
 }
